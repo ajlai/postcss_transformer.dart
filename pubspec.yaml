@@ -1,0 +1,5 @@
+name: postcss_transformer
+author: Anthony Lai <anthonyjlai@gmail.com>
+description: Transformer that applies postcss processing.
+dependencies:
+  barback: ^0.15.2

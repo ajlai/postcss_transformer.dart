@@ -1,0 +1,9 @@
+name: postcss_transformer_example
+dependencies:
+  postcss_transformer:
+    path: ..
+transformers:
+- postcss_transformer:
+    arguments:
+    - use: autoprefixer
+    - autoprefixer.browsers: Firefox 38, Safari 9
