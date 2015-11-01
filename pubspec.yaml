@@ -1,5 +1,9 @@
 name: postcss_transformer
+version: 0.1.0
+homepage: https://github.com/ajlai/postcss_transformer.dart
 author: Anthony Lai <anthonyjlai@gmail.com>
 description: Transformer that applies postcss processing.
+environment:
+    sdk: ">=1.8.0"
 dependencies:
   barback: ^0.15.2
