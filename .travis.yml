@@ -1,7 +1,11 @@
 language: dart
 dart:
   - stable
+env:
+  - POSTCSS="postcss" POSTCSS_CLI="postcss-cli" AUTOPREFIXER="autoprefixer"
 install:
   - travis_retry pub get
+  - travis_retry nvm install node
+  - travis_retry npm install --global $POSTCSS $POSTCSS_CLI $AUTOPREFIXER
 script:
-  - dart tool/grind.dart build
+  - pub run grinder:grinder build

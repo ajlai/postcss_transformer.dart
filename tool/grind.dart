@@ -14,6 +14,11 @@ void lint() {
   new PubApp.global('linter').run(["./"]);
 }
 
+@Task("Runs transformer test")
+void test() {
+  new TestRunner().testAsync();
+}
+
 @DefaultTask()
-@Depends(analyze, lint)
+@Depends(analyze, test, lint)
 void build() {}

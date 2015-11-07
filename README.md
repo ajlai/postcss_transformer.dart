@@ -1,4 +1,4 @@
-# postcss_transformer.dart
+# postcss_transformer.dart [![Build Status](https://travis-ci.org/ajlai/postcss_transformer.dart.svg?branch=master)](https://travis-ci.org/ajlai/postcss_transformer.dart)
 http://pub.dartlang.org/packages/postcss_transformer
 
 [Dart transformer](https://www.dartlang.org/tools/pub/glossary.html#transformer) wrapping [PostCSS](https://github.com/postcss/postcss).
