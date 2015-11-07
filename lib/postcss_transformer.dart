@@ -18,18 +18,19 @@ class _Configuration {
     this.executableArgs
   });
 
-  factory _Configuration.fromConfig(Map<String,String> config) {
-    var executable = config['executable'] ?? 'postcss';
-    var inputExtension = config['input_extension'] ?? '.css';
-    var outputExtension = config['output_extension'] ?? inputExtension;
+  factory _Configuration.fromConfig(Map<String,dynamic> config) {
+    final String executable = config['executable'] ?? 'postcss';
+    final String inputExtension = config['input_extension'] ?? '.css';
+    final String outputExtension = config['output_extension'] ?? inputExtension;
 
     if (!config.containsKey('arguments')) {
       throw new ArgumentError('arguments must be provided');
     }
 
-    var executableArgs = [];
-    (config['arguments'] as Iterable<Map<String,String>>).forEach((argumentMap) {
-      argumentMap.forEach((k, v) {
+    final List<String> executableArgs = [];
+    final Iterable<Map<String,String>> arguments = config['arguments'];
+    arguments.forEach((Map<String,String> argumentMap) {
+      argumentMap.forEach((String k, String v) {
         executableArgs.add('--$k');
         executableArgs.add(v.toString());
       });
@@ -60,17 +61,17 @@ class PostcssTransformer extends Transformer implements DeclaringTransformer {
       _configuration = new _Configuration.fromConfig(s.configuration);
 
   Future apply(Transform transform) async {
-    var asset = transform.primaryInput;
-    var process = await Process.start(_configuration.executable, _configuration.executableArgs);
-    process.stdin.addStream(asset.read()).then((_) => process.stdin.close());
+    final Asset asset = transform.primaryInput;
+    final Process process = await Process.start(_configuration.executable, _configuration.executableArgs);
+    process.stdin.addStream(asset.read()).then((dynamic _) => process.stdin.close());
 
-    var exitCode = await process.exitCode;
+    final int exitCode = await process.exitCode;
     if (exitCode == 0) {
-      var newId = _outputId(asset.id);
+      final AssetId newId = _outputId(asset.id);
       transform.addOutput(new Asset.fromStream(newId, process.stdout));
     } else {
-      var command = "${_configuration.executable} ${_configuration.executableArgs.join(" ")}";
-      var errorString = "Command: $command\nstderr:\n";
+      final String command = "${_configuration.executable} ${_configuration.executableArgs.join(" ")}";
+      String errorString = "Command: $command\nstderr:\n";
       errorString += await process.stderr.transform(UTF8.decoder).join("");
       transform.logger.error(errorString, asset: asset.id);
     }
