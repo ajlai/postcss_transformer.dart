@@ -1,0 +1,7 @@
+language: dart
+dart:
+  - stable
+install:
+  - travis_retry pub get
+script:
+  - dart tool/grind.dart build
